@@ -1,0 +1,11 @@
+.title-appear {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.title-appear-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition-property: opacity, left;
+  transition: transform 0.5s, opacity 0.5s;
+}
