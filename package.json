@@ -25,7 +25,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://yevhen-shmatko.github.io/goit-react-hw-05-phonebook",
   "eslintConfig": {
     "extends": "react-app"
   },
