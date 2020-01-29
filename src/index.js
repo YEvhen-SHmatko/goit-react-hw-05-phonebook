@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PNotifyBrightTheme from 'pnotify/dist/PNotifyBrightTheme.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import 'pnotify/dist/PNotifyBrightTheme.css';
 import App from './components/App/App';
 
 ReactDOM.render(
-  <App className={PNotifyBrightTheme} />,
+  <BrowserRouter>
+    <Route component={App} />
+  </BrowserRouter>,
   document.getElementById('root'),
 );

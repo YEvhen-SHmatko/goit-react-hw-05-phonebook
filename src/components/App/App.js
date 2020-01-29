@@ -1,10 +1,13 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import PhoneBook from '../PhoneBook/PhoneBook';
 
 export default function App() {
   return (
     <>
-      <PhoneBook />
+      <Switch>
+        <Route path="/" exact component={PhoneBook} />
+      </Switch>
     </>
   );
 }
