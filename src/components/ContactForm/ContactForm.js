@@ -5,6 +5,10 @@ import shortid from 'shortid';
 import pop from '../../transition/pop.module.css';
 import Styles from './ContactForm.module.css';
 
+const INITIAL_STATE = {
+  name: '',
+  number: '',
+};
 export default class ContactForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
@@ -15,8 +19,7 @@ export default class ContactForm extends Component {
   };
 
   state = {
-    name: '',
-    number: '',
+    ...INITIAL_STATE,
   };
 
   handleChange = e => {
@@ -28,7 +31,7 @@ export default class ContactForm extends Component {
     const { onSubmit } = this.props;
     const { name, number } = this.state;
     onSubmit({ id: shortid.generate(), name, number });
-    this.setState({ name: '', number: '' });
+    this.setState({ ...INITIAL_STATE });
   };
 
   render() {
@@ -37,7 +40,8 @@ export default class ContactForm extends Component {
     const { name, number } = this.state;
     const verificationLength = name.length === 0 || number.length === 0;
     const verificationNumber = Number.isNaN(Number(number)) || number === null;
-    const submitVerification = verificationLength || verificationNumber;
+    const isActiveButton = verificationLength || verificationNumber;
+    const isActive = isActiveButton ? Styles.disabled : Styles.button;
     return (
       <CSSTransition in timeout={250} unmountOnExit classNames={pop}>
         <section className={Styles.section__contact}>
@@ -65,9 +69,9 @@ export default class ContactForm extends Component {
               />
             </label>
             <button
-              disabled={submitVerification}
+              disabled={isActiveButton}
               type="submit"
-              className={!submitVerification ? Styles.button : Styles.disabled}
+              className={isActive}
             >
               Add contact
             </button>

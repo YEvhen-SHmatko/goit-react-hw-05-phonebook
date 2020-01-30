@@ -7,23 +7,23 @@ import slide from '../../transition/slide.module.css';
 const ContactList = ({ filterContacts, onClickDelete }) => (
   <>
     <TransitionGroup component="ul" className={Styles.list}>
-      {filterContacts.map(e => (
+      {filterContacts.map(contact => (
         <CSSTransition
-          key={e.id}
+          key={contact.id}
           timeout={250}
           unmountOnExit
           classNames={slide}
         >
-          <li key={e.id} className={Styles.item}>
+          <li key={contact.id} className={Styles.item}>
             <div className={Styles['item-wrap']}>
-              <span className={Styles['item-name']}>{e.name}:</span>
-              <span className={Styles['item-number']}>{e.number}</span>
+              <span className={Styles['item-name']}>{contact.name}:</span>
+              <span className={Styles['item-number']}>{contact.number}</span>
             </div>
             <button
               className={Styles.button}
               type="button"
               onClick={onClickDelete}
-              id={e.id}
+              id={contact.id}
             >
               X
             </button>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import shortid from 'shortid';
 import PNotify from 'pnotify/dist/es/PNotify';
 import ContactForm from '../ContactForm/ContactForm';
 import Filter from '../Filter/Filter';
@@ -8,6 +7,11 @@ import Styles from './PhoneBook.module.css';
 import Error from '../Error/Error';
 import Title from '../Title/Title';
 import '../../transition/pnotify-style.css';
+import { ALL_ID } from '../../services/constants';
+import {
+  saveToLocalStorage,
+  getToLocalStorage,
+} from '../../services/localStorage';
 
 export default class PhoneBook extends Component {
   state = {
@@ -15,24 +19,14 @@ export default class PhoneBook extends Component {
     filter: '',
   };
 
-  inputIds = {
-    nameId: shortid.generate(),
-    numberId: shortid.generate(),
-    finedId: shortid.generate(),
-  };
-
   componentDidMount() {
-    if (localStorage.getItem('localState') !== null) {
-      this.setState({
-        contacts: JSON.parse(localStorage.getItem('localState')),
-      });
-    }
+    this.setState({ contacts: getToLocalStorage('localState') });
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { contacts } = this.state;
     if (prevState.contacts !== contacts) {
-      localStorage.setItem('localState', JSON.stringify(contacts));
+      saveToLocalStorage('localState', contacts);
     }
   }
 
@@ -74,7 +68,7 @@ export default class PhoneBook extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-    const { nameId, numberId, finedId } = this.inputIds;
+    const { nameId, numberId, finedId } = ALL_ID;
     const filterContacts = contacts.filter(contact => {
       const nameContact = contact.name;
       return nameContact.toLowerCase().includes(filter.toLowerCase());
