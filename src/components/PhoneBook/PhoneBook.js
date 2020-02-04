@@ -20,7 +20,11 @@ export default class PhoneBook extends Component {
   };
 
   componentDidMount() {
-    this.setState({ contacts: getToLocalStorage('localState') });
+    const result =
+      getToLocalStorage('localState') === null
+        ? []
+        : getToLocalStorage('localState');
+    this.setState({ contacts: result });
   }
 
   componentDidUpdate(prevProps, prevState) {
